@@ -18,10 +18,7 @@ class User(AbstractUser):
         max_length=255,
         unique=True,
     )
-    phone_number = PhoneNumberField(unique=True)
-    username = models.CharField(max_length=16, unique=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    
     # notice the absence of a "Password field", that is built in.
     # django uses the 'username' to identify users by default, but many modern applications use 'email' instead
     USERNAME_FIELD = 'email'
