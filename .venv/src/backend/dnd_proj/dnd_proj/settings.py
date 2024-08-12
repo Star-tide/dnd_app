@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'dnd_app',
     'rest_framework',
     'rest_framework.authtoken',
-    'google_app'
+    'google_app',
 ]
 
 MIDDLEWARE = [
