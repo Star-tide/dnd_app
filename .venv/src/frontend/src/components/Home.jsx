@@ -1,5 +1,5 @@
 export const Home = () => {
   return (
-    <div>Home</div>
+    <div>Successfully Logged In!: Home Page</div>
   )
 }

@@ -18,7 +18,7 @@ class Sign_up(APIView):
         user = User.objects.create_user(**request.data)
         token = Token.objects.create(user=user)
         return Response(
-            {"trainer": user.email, "token": token.key}, status=HTTP_201_CREATED
+            {"user_email": user.email, "username": user.username, "token": token.key}, status=HTTP_201_CREATED
         )
     
 

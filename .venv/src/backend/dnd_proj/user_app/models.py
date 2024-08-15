@@ -11,6 +11,10 @@ class User(AbstractUser):
         max_length=255,
         unique=True,
     )
+    username = models.CharField(
+        max_length=50,
+        unique=True
+    )
     # notice the absence of a "Password field", that is built in.
     # django uses the 'username' to identify users by default, but many modern applications use 'email' instead
     USERNAME_FIELD = 'email'

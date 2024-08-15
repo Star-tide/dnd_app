@@ -1,10 +1,12 @@
+import { useOutletContext } from "react-router-dom";
+
 export const Loading = () => {
   return (
     <>
-      <button type="button" className="bg-indigo-500 rounded px-1 py-1" disabled>
+      <button type="button" className="btn btn-primary shadow-gray-600" disabled>
         <div className="flex flex-row items-center justify-center">
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"></div>
-          <div className="justify-center items-center align-center px-1">Rolling for display...</div>
+          <div className='loading loading-spinner text-neutral'></div>
+          <div className="justify-center items-center align-center px-1">{"Rolling for Display..."}</div>
         </div>
       </button>
     </>

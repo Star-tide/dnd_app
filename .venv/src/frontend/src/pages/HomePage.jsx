@@ -1,30 +1,23 @@
 import { useEffect, useState } from "react"
-import { LogIn } from "../components/LogIn";
+import { UserForms } from "../components/UserForms";
 import { Home } from "../components/Home";
-import { isUserLoggedIn } from "../utils/auth";
 import { Loading } from "../components/Loading";
+import { useOutletContext } from "react-router-dom";
 
 export const HomePage = () => {
-  const [userAuthenticated, setUserAuth] = useState(null)
 
-  // useEffect(() => {
-  //   const checkLoginStatus = async () => {
-  //     const loggedIn = await isUserLoggedIn();
-  //     setUserAuth(loggedIn)
+  // Global contexts
+  const { 
+    userAuthenticated,
+    setUserAuth,
+   } = useOutletContext();
 
-  //     if (loggedIn) {
-  //       setUserAuth("home")
-  //     } else { setUserAuth("login")}
-  //   };
-  //   checkLoginStatus();
-  // }, []);
-
-
+  // Do some logic to check for user authentication via django api call
 
   function Display({ logged_in }) {
-    switch(userAuthenticated) {
+    switch(logged_in) {
       case false:
-        return <LogIn />
+        return <UserForms />
       case true:
         return <Home />
       default:
@@ -34,6 +27,7 @@ export const HomePage = () => {
 
   return (
     <>
+      {/* <NavBar /> */}
       <main className="w-full h-screen flex justify-center items-center">
         <Display logged_in={userAuthenticated} />
       </main>
