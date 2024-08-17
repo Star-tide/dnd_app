@@ -26,7 +26,9 @@ export const HomePage = () => {
 
   return (
     <>
-      <NavBar user={user}/>
+      <nav className="sticky top-0">
+        <NavBar user={user} />
+      </nav>
       <main className="w-full h-screen flex justify-center items-center">
         <Display logged_in={user ? true : false} />
       </main>

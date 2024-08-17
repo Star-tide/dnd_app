@@ -43,7 +43,6 @@ export const logOut = async () => {
     let response = await api.post("/logout/");
     if (response.status === 204) {
       localStorage.removeItem("token");
-      localStorage.removeItem("user_display_name")
       delete api.defaults.headers.common["Authorization"];
       console.log("User Logged Out Successfully")
       return null;
@@ -62,7 +61,6 @@ export const confirmUser = async () => {
       console.log(token)
       api.defaults.headers.common["Authorization"] = `Token ${token}`;
       let response = await api.get("users/");
-      localStorage.setItem("user_display_name", response.data.display_name)
       return response.data;
     }
 

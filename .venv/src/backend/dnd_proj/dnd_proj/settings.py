@@ -57,9 +57,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+# Allow requests from the origin of your frontend application
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Replace with the actual origin of your frontend app
+]
 
 ROOT_URLCONF = 'dnd_proj.urls'
 

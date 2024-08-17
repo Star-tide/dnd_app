@@ -19,7 +19,8 @@ class Sign_up(APIView):
     def post(self, request):
     # Make a copy of the request data to modify
         data = request.data.copy()
-        data["username"] = data.get("email")  # Ensure 'email' is in request.data
+        data["username"] = request.data.get("email")  # Ensure 'email' is in request.data
+        # data["display_name"] = request.data.get("display_name")
         
         # Validate and create user
         serializer = UserSerializer(data=data)
