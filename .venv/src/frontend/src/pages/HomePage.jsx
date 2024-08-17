@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react"
 import { UserForms } from "../components/UserForms";
 import { Home } from "../components/Home";
 import { Loading } from "../components/Loading";
 import { useOutletContext } from "react-router-dom";
+import { NavBar } from "../components/NavBar";
 
 export const HomePage = () => {
-
-  // Global contexts
   const { 
-    userAuthenticated,
-    setUserAuth,
+    user
    } = useOutletContext();
 
+  console.log("homepage rendered")
+   
   // Do some logic to check for user authentication via django api call
 
   function Display({ logged_in }) {
@@ -27,9 +26,9 @@ export const HomePage = () => {
 
   return (
     <>
-      {/* <NavBar /> */}
+      <NavBar user={user}/>
       <main className="w-full h-screen flex justify-center items-center">
-        <Display logged_in={userAuthenticated} />
+        <Display logged_in={user ? true : false} />
       </main>
     </>
   );

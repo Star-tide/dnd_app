@@ -1,36 +1,41 @@
+import { signIn } from "../utils/auth";
 import { useOutletContext } from "react-router-dom";
-import axios from"axios"
-
 
 export const LogIn = ({ setAccountState }) => {
 
-  const { setUserAuth } = useOutletContext();
+  const { setUser } = useOutletContext();
+
   const handleSignUpClick = () => {
     setAccountState(true); // Switch to the SignUp component
   };
 
-  const loginSubmit = async (event) => {
+  const handleSignIn = async (event) => {
     event.preventDefault();
-    setAccountState(null)
-    const formData = new FormData(event.target)
-    // Visualize what data is being sent
-    // for (const [key, value] of formData.entries()) {
-    //   console.log(`${key}: ${value}`);
-    // }
-
-    try {
-        const { data } = await axios.post('http://127.0.0.1:8000/login/', formData, {
-            headers: {
-                'Content-type': 'application/json'
-            }
-        }) 
-        localStorage.setItem('token', data['token'])
-        setAccountState(true)
-        setUserAuth(true)
-    } catch (error) {
-        console.log("Error Logging in:", error)
-    }
+    setUser(await signIn(event))
   }
+
+  // const loginSubmit = async (event) => {
+  //   event.preventDefault();
+  //   setAccountState(null)
+  //   const formData = new FormData(event.target)
+  //   // Visualize what data is being sent
+  //   // for (const [key, value] of formData.entries()) {
+  //   //   console.log(`${key}: ${value}`);
+  //   // }
+
+  //   try {
+  //       const { data } = await axios.post('http://127.0.0.1:8000/api/login/', formData, {
+  //           headers: {
+  //               'Content-type': 'application/json'
+  //           }
+  //       }) 
+  //       localStorage.setItem('token', data['token'])
+  //       setAccountState(true)
+  //       setUserAuth(true)
+  //   } catch (error) {
+  //       console.log("Error Logging in:", error)
+  //   }
+  // }
 
   return (
     <>
@@ -38,7 +43,7 @@ export const LogIn = ({ setAccountState }) => {
         <section className="card-body items-center text-center">
           <h2 className="card-title">Welcome Adventurer</h2>
           <div className="divider"></div>
-          <form action="post" onSubmit={loginSubmit}className="flex flex-col gap-2">
+          <form action="post" onSubmit={handleSignIn}className="flex flex-col gap-2">
             <label className="input input-bordered flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -1,8 +1,10 @@
-import axios from "axios"
 import { useOutletContext } from "react-router-dom";
+import { signUp } from "../utils/auth";
 
 export const SignUp = ({ setAccountState }) => {
-  const { setUserAuth } = useOutletContext();
+
+  const { setUser } = useOutletContext();
+
   const handleLogInClick = () => {
     setAccountState(false); // Switch to the LogIn component
   };
@@ -10,26 +12,7 @@ export const SignUp = ({ setAccountState }) => {
   const handleSignUpSubmit = async (event) => {
     event.preventDefault();
     setAccountState(null);
-    const formData = new FormData(event.target);
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
-    try {
-      const { data } = await axios.post(
-        "http://127.0.0.1:8000/signup/",
-        formData,
-        {
-          headers: {
-            "Content-type": "application/json",
-          },
-        }
-      );
-      console.log(data['token'])
-      setAccountState(true);
-      setUserAuth(true);
-    } catch (error) {
-      console.log("Signup Failed...", error);
-    }
+    setUser(await signUp(event))
   };
 
   return (
@@ -50,7 +33,7 @@ export const SignUp = ({ setAccountState }) => {
                 >
                   <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                 </svg>
-                <input name="username" type="text" className="grow" placeholder="Username" />
+                <input name="display_name" type="text" className="grow" placeholder="Username" />
               </label>
               {/* Email Field */}
               <label className="input input-bordered flex items-center gap-2">
@@ -85,7 +68,7 @@ export const SignUp = ({ setAccountState }) => {
                   placeholder="Password"
                 />
               </label>
-              <label className="input input-bordered flex items-center gap-2">
+              {/* <label className="input input-bordered flex items-center gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
@@ -103,7 +86,7 @@ export const SignUp = ({ setAccountState }) => {
                   className="grow"
                   placeholder="Re-enter Password"
                 />
-              </label>
+              </label> */}
               {/* Swap/submit */}
               <div className="flex flex-row gap-2 justify-center pt-1">
                 <button

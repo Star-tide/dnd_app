@@ -1,18 +1,19 @@
-import { useState, React } from 'react'
+import { useState } from 'react'
 import './output.css'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLoaderData } from 'react-router-dom'
 
 
 function App() {
-const [userAuthenticated, setUserAuth] = useState(false);
+const [user, setUser] =  useState(useLoaderData())
 console.log("App rendered")
+console.log("user in app.jsx rendered with:" , user)
 
   return (
     <>
       <Outlet context={ 
         {
-          userAuthenticated,
-          setUserAuth
+          user,
+          setUser
         } }/>
     </>
   )

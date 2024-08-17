@@ -1,11 +1,14 @@
 from django.contrib.auth import authenticate
 from .models import User
+from .serializers import UserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_404_NOT_FOUND,
     HTTP_204_NO_CONTENT,
+    HTTP_200_OK,
+    HTTP_400_BAD_REQUEST
 )
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
@@ -14,13 +17,24 @@ from rest_framework.permissions import IsAuthenticated
 
 class Sign_up(APIView):
     def post(self, request):
-        request.data["username"] = request.data["email"]
-        user = User.objects.create_user(**request.data)
-        token = Token.objects.create(user=user)
+    # Make a copy of the request data to modify
+        data = request.data.copy()
+        data["username"] = data.get("email")  # Ensure 'email' is in request.data
+        
+        # Validate and create user
+        serializer = UserSerializer(data=data)
+        if serializer.is_valid():
+            user = serializer.save()  # Create user through serializer
+            token, created = Token.objects.get_or_create(user=user)  # Generate token
+            
+            return Response(
+                {"token": token.key, "user": serializer.data},
+                status=HTTP_201_CREATED
+            )
         return Response(
-            {"user_email": user.email, "username": user.username, "token": token.key}, status=HTTP_201_CREATED
+            serializer.errors,
+            status=HTTP_400_BAD_REQUEST
         )
-    
 
 
 class Log_in(APIView):
@@ -33,17 +47,19 @@ class Log_in(APIView):
             return Response({"token": token.key, "user": user.email})
         else:
             return Response("No user matching credentials", status=HTTP_404_NOT_FOUND)
-        
-class Info(APIView):
+
+class TokenReq(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
+class Info(TokenReq):
+
     def get(self, request):
-        return Response({"email": request.user.email})
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=HTTP_200_OK)
     
-class Log_out(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+class Log_out(TokenReq):
 
     def post(self, request):
         request.user.auth_token.delete()
