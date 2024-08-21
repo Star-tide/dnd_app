@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState} from "react"
 import { createCharacter } from "../utils/auth";
 
-export const NewCharacter = () => {
+export const NewCharacter = ({ onCharacterAdded }) => {
   const [newCharacter, setNewCharacter] = useState(false);
   const [characterClass, setCharacterClass] = useState("");
 
@@ -15,10 +15,10 @@ export const NewCharacter = () => {
   // });
 
   const handleNewCharacter = async (event) => {
-    console.log("New Character Caled")
-    await createCharacter(event)
-    console.log("Character created")
+    await createCharacter(event);
     setNewCharacter(!newCharacter);
+    onCharacterAdded()
+    
   };
   if (!newCharacter) {
     return (
@@ -37,7 +37,7 @@ export const NewCharacter = () => {
     );
   } else {
     return (
-      <main className="container card flex flex-col mx-auto w-72 h-72 justify-items-center">
+      <main className="container card flex flex-col mx-auto w-72 h-80 justify-items-center">
         <section className="card-body bg-base-100 rounded justify-items-center">
           <div className="card-title">New Character</div>
           <div className="divider"></div>
@@ -82,4 +82,4 @@ export const NewCharacter = () => {
       </main>
     );
   }
-}
+};

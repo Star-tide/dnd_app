@@ -52,21 +52,23 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Allow requests from the origin of your frontend application
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Replace with the actual origin of your frontend app
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",  # React app running locally
+#     "http://localhost:5173",  # If using Vite or another tool with a different port
+#     "http://127.0.0.1:8000",  # Django backend
+# ]
 
 ROOT_URLCONF = 'dnd_proj.urls'
 

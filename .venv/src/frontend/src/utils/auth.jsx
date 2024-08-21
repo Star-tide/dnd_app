@@ -73,20 +73,50 @@ export const confirmUser = async () => {
 
 export const createCharacter = async (event) => {
   event.preventDefault();
-  const formData = new FormData(event.target)
+  const formData = new FormData(event.target);
+  // Fetch the hit dice value
+  const characterClass = formData.get("character_class").toLowerCase();
+  const hitDie = await getClassHitDice(characterClass);
+
+  // Append the hit dice value to the FormData object
+  formData.append("hit_dice", hitDie);
   for (const [key, value] of formData.entries()) {
     console.log(`${key}: ${value}`);
   }
+  try {
+    let response = await api.post("/character/", formData);
 
-  
-
+    if (response.status === 201) {
+      console.log("Character Created");
+    }
+  } catch (error) {
+    console.log("Create character failed", error);
+  }
 };
 
-// // Example usage
-// createCharacter({
-//   name: "Gandalf",
-//   level: 20,
-//   character_class: "Wizard",
-//   bio: "A wise and powerful wizard",
-//   spells: [1, 2, 3], // Assuming these are spell IDs
-// });
+export const fetchCharacters = async () => {
+  try {
+    const response = await api.get("/character/"); // Replace with your endpoint
+    console.log(response.data)
+    return response.data
+  } catch (error) {
+    console.error("Error fetching characters:", error);
+  }
+};
+
+export const deleteCharacter = async (characterId) => {
+  try {
+    // Send DELETE request to the API with the character ID
+    const response = await api.delete(`/character/${characterId}/`);
+    return response.data; // Return the response data if needed
+  } catch (error) {
+    console.error("Error deleting character:", error);
+    throw error; // Rethrow the error for handling in the calling code
+  }
+};
+
+export const getClassHitDice = async (classString) => {
+  const response = await axios.get(`https://www.dnd5eapi.co/api/classes/${classString}`);
+  console.log(response.data.hit_die)
+  return response.data.hit_die
+}

@@ -14,6 +14,7 @@ class Character(models.Model):
     level = models.IntegerField(default=1)
     character_class = models.CharField(max_length=50)
     bio = models.TextField()
+    hit_dice = models.IntegerField(default=1)
     spells = models.ManyToManyField(Spell, related_name='characters')
 
     def __str__(self):
