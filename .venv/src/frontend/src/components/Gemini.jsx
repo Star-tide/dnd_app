@@ -60,7 +60,7 @@ export const Gemini = () => {
   return (
     <>
       {/* Main Container */}
-      <main className="conversation flex flex-col max-h-[450px]">
+      <main className="container card bg-base-100 p-3 w-72 h-72 conversation flex flex-col max-h-[450px]">
         {/* Title */}
         <div className="title text-center">Ask Rjordan</div>
         <div className="divider"></div>

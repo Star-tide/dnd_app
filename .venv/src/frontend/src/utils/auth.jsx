@@ -70,3 +70,23 @@ export const confirmUser = async () => {
   }
   return null;
 };
+
+export const createCharacter = async (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.target)
+  for (const [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
+
+  
+
+};
+
+// // Example usage
+// createCharacter({
+//   name: "Gandalf",
+//   level: 20,
+//   character_class: "Wizard",
+//   bio: "A wise and powerful wizard",
+//   spells: [1, 2, 3], // Assuming these are spell IDs
+// });

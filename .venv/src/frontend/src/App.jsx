@@ -5,6 +5,7 @@ import { Outlet, useLoaderData } from 'react-router-dom'
 
 function App() {
 const [user, setUser] =  useState(useLoaderData())
+const [ viewState, setViewState ] = useState("characters")
 console.log("App rendered")
 console.log("user in app.jsx rendered with:" , user)
 
@@ -13,7 +14,9 @@ console.log("user in app.jsx rendered with:" , user)
       <Outlet context={ 
         {
           user,
-          setUser
+          setUser,
+          viewState,
+          setViewState
         } }/>
     </>
   )

@@ -1,27 +1,20 @@
 import { useState } from "react"
 import { useOutletContext } from "react-router-dom";
 import { Loading } from "./Loading"
-import { AllCharactersSlide } from "./AllCharactersSlide";
+import { Character } from "./Character";
 import { AccountSlide } from "./AccountSlide";
 import { Gemini } from "./Gemini";
 
 
 export const Home = () => {
-
-  const [viewState, setViewState ] = useState("gemini");
-  const { user } = useOutletContext();
-
-  const handleTabChange = (newViewState) => {
-    console.log(viewState)
-    setViewState(newViewState);
-  };
+  const { user, viewState, setViewState } = useOutletContext();
 
   const DisplayHome = () => {
     switch (viewState) {
       case "home":
         return <AccountSlide />
       case "characters":
-        return <AllCharactersSlide />
+        return <Character />
       case "gemini":
         return <Gemini />
       default:

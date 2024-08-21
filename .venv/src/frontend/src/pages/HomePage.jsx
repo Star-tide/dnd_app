@@ -8,8 +8,6 @@ export const HomePage = () => {
   const { 
     user
    } = useOutletContext();
-
-  console.log("homepage rendered")
    
   // Do some logic to check for user authentication via django api call
 
