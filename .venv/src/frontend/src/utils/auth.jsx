@@ -5,6 +5,7 @@ export const api = axios.create({
 });
 
 export const signUp = async (event) => {
+  localStorage.removeItem("token")
   const formData = new FormData(event.target)
   for (const [key, value] of formData.entries()) {
     console.log(`${key}: ${value}`);

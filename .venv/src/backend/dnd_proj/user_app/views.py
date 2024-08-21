@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import login, logout, authenticate
 from .models import User
 from .serializers import UserSerializer
 from rest_framework.views import APIView
@@ -26,6 +26,9 @@ class Sign_up(APIView):
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
             user = serializer.save()  # Create user through serializer
+            user.set_password(data.get("password"))
+            user.save()
+            login(request, user)
             token, created = Token.objects.get_or_create(user=user)  # Generate token
             
             return Response(
