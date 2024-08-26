@@ -22,4 +22,5 @@ urlpatterns = [
     path("api/", include('user_app.urls')),
     path("api/character/", include("character_app.urls")),
     path("api/gemini/", include("google_app.urls")),
+    path("api/campaign/", include("campaign.urls"))
 ]

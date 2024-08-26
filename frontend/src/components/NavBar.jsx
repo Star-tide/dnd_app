@@ -51,6 +51,9 @@ export const NavBar = () => {
                 <a onClick={() => setViewState("characters")}>Characters</a>
               </li>
               <li>
+                <a onClick={() => setViewState("campaigns")}>Campaigns</a>
+              </li>
+              <li>
                 <a onClick={() => setViewState("gemini")}>Rjordan</a>
               </li>
             </ul>

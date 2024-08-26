@@ -121,3 +121,41 @@ export const getClassHitDice = async (classString) => {
   console.log(response.data.hit_die)
   return response.data.hit_die
 }
+
+export const fetchCampaigns = async () => {
+  try {
+    const response = await api.get("/campaign/"); // Replace with your endpoint
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching campaigns:", error);
+  }
+};
+
+export const deleteCampaign = async (campaignId) => {
+  try {
+    // Send DELETE request to the API with the character ID
+    const response = await api.delete(`/campaign/${campaignId}/`);
+    return response.data; // Return the response data if needed
+  } catch (error) {
+    console.error("Error deleting campaign:", error);
+    throw error; // Rethrow the error for handling in the calling code
+  }
+};
+
+export const createCampaign = async (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  for (const [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
+  try {
+    let response = await api.post("/campaign/", formData);
+
+    if (response.status === 201) {
+      console.log("Campaign Created");
+    }
+  } catch (error) {
+    console.log("Create Campaign failed", error);
+  }
+};

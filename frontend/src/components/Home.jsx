@@ -4,6 +4,7 @@ import { Loading } from "./Loading"
 import { Character } from "./Character";
 import { AccountSlide } from "./AccountSlide";
 import { Gemini } from "./Gemini";
+import { Campaign } from "./Campaign"
 
 
 export const Home = () => {
@@ -12,13 +13,15 @@ export const Home = () => {
   const DisplayHome = () => {
     switch (viewState) {
       case "home":
-        return <AccountSlide />
+        return <AccountSlide />;
       case "characters":
-        return <Character />
+        return <Character />;
       case "gemini":
-        return <Gemini />
+        return <Gemini />;
+      case "campaigns":
+        return <Campaign />;
       default:
-        return <Loading />
+        return <Loading />;
     }
   }
   return (

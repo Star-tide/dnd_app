@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { NewCharacter } from "./NewCharacter";
-import { fetchCharacters, deleteCharacter, getClassHitDice } from "../utils/auth";
+import { fetchCharacters, deleteCharacter} from "../utils/auth";
 
 export const Character = () => {
   const [characters, setCharacters] = useState([]);
